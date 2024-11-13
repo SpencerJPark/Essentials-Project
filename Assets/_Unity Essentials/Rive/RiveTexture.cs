@@ -20,13 +20,21 @@ public class RiveTexture : MonoBehaviour
 
     private void Awake()
     {
-        m_renderTexture = new RenderTexture(TextureHelper.Descriptor(size, size));
+        // Set the RenderTexture to use ARGB32 format for compatibility with WebGL and enable alpha
+        m_renderTexture = new RenderTexture(size, size, 0, RenderTextureFormat.ARGB32);
+        
+        // Enable random write for compatibility with D3D11
+        m_renderTexture.enableRandomWrite = true;
+        
+        // Ensure it's created for use in WebGL
         m_renderTexture.Create();
 
+        // Attach the RenderTexture to the material on the GameObject
         UnityEngine.Renderer renderer = GetComponent<UnityEngine.Renderer>();
         Material material = renderer.material;
         material.mainTexture = m_renderTexture;
 
+        // Initialize the Rive RenderQueue and Renderer
         m_renderQueue = new Rive.RenderQueue(m_renderTexture);
         m_riveRenderer = m_renderQueue.Renderer();
 
@@ -47,7 +55,13 @@ public class RiveTexture : MonoBehaviour
             m_commandBuffer.ClearRenderTarget(true, true, UnityEngine.Color.clear, 0.0f);
             m_riveRenderer.AddToCommandBuffer(m_commandBuffer);
         }
+
+        // WebGL-specific handling: Clear the RenderTexture manually for transparency
+        Graphics.SetRenderTarget(m_renderTexture);
+        GL.Clear(true, true, new UnityEngine.Color(0, 0, 0, 0)); // Clear with transparent color
+        Graphics.SetRenderTarget(null);
     }
+
 
     private void Update()
     {
@@ -60,16 +74,28 @@ public class RiveTexture : MonoBehaviour
         }
     }
 
-    // New function to update the direction input in the state machine
+    // Function to update the direction input in the state machine
     public void UpdateDirectionInput(int direction)
     {
         if (m_stateMachine == null) return;
 
-        // Access the "Direction" input in the state machine and set its value
-        SMIInput directionInput = m_stateMachine.GetNumber("Direction"); // Replace "Direction" with the actual name
+        SMIInput directionInput = m_stateMachine.GetNumber("Direction"); 
         if (directionInput is SMINumber directionNumber)
         {
             directionNumber.Value = direction;
+        }
+    }
+
+    // Function to update the level state based on GameManager's input
+    public void UpdateLevelState(int level)
+    {
+        if (m_stateMachine == null) return;
+
+        // Access the "Level" input in the state machine and set its value
+        SMIInput levelInput = m_stateMachine.GetNumber("Level"); 
+        if (levelInput is SMINumber levelNumber)
+        {
+            levelNumber.Value = level;
         }
     }
 }

@@ -42,7 +42,8 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 12
+  serializedVersion: 13
+  m_BakeOnSceneLoad: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -2770,7 +2771,13 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1754225008}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1245013424
+--- !u!4 &1245013427 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8939499483144501276, guid: bc3f8280b6d69439cb3e7c45f5c84cd8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1754225008}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1245013428
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2779,18 +2786,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1245013423}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 390ba5f536cc61744896c58206b8115c, type: 3}
+  m_Script: {fileID: 11500000, guid: 99735c2f6a7dc6b4085a924f11e8df5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  rotationSpeed: 160
+  speed: 3
+  rotationSpeed: 120
   jumpForce: 5
---- !u!4 &1245013427 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8939499483144501276, guid: bc3f8280b6d69439cb3e7c45f5c84cd8,
-    type: 3}
-  m_PrefabInstance: {fileID: 1754225008}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1245505145
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3885,7 +3886,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8594182855824630438, guid: bc3f8280b6d69439cb3e7c45f5c84cd8,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1245013424}
+      addedObject: {fileID: 1245013428}
   m_SourcePrefab: {fileID: 100100000, guid: bc3f8280b6d69439cb3e7c45f5c84cd8, type: 3}
 --- !u!1 &1770818034 stripped
 GameObject:
